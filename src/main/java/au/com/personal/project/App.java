@@ -1,7 +1,5 @@
 package au.com.personal.project;
 
-
-
 import au.com.personal.project.models.TaxCalculator;
 
 import java.util.Objects;

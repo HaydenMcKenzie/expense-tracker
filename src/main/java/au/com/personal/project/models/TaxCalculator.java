@@ -11,6 +11,8 @@ public class TaxCalculator {
      * 180001+       - $51,667 plus 45c
      */
 
+    double fourtyThousandIncome;
+    double fourtyThousandTax;
     double hundredTwentyThousandIncome;
     double hundredTwentyThousandTax;
     double hundredEightyThousandIncome;
@@ -23,10 +25,10 @@ public class TaxCalculator {
         if (isStringDouble(userInput)) {
 
             double income = Double.parseDouble(userInput);
-
             double paidTaxAlreadyFirst = 5092;
             double paidTaxAlreadySecond = (5092 + 24375);
             double paidTaxAlreadyThird = (5092 + 24375 + 22200);
+            double incomeTax45 = ((income - 18201) * 0.19);
             double incomeTax120 = ((income - 45001) * 0.325);
             double incomeTax180 = ((income - 120000) * 0.37);
             double incomeTaxOver180 = ((income - 180000) * 0.45);
@@ -35,10 +37,11 @@ public class TaxCalculator {
             if (income < 18200) {
                 return String.valueOf(income);
             } else if (income < 45000) {
-                double firstTax = income - 18200;
-                double taxed = firstTax * 0.19;
-                double remainder = firstTax * 0.81;
-                return "Your tax is " + taxed + ". Your income is: " + (18200 + remainder);
+                fourtyThousandIncome = income - incomeTax45 - medicareIvey;
+                fourtyThousandTax = income - fourtyThousandIncome;
+                String taxed = String.format("%.3f", fourtyThousandTax);
+
+                return "Your tax is " + taxed + ". Your income is: " + fourtyThousandIncome;
 
             } else if (income < 120000) {
                 hundredTwentyThousandIncome = income - paidTaxAlreadyFirst - incomeTax120 - medicareIvey;

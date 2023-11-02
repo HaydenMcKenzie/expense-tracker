@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"au.com.personal.project","l":"App"},{"p":"au.com.personal.project.models","l":"TaxCalculator"},{"p":"au.com.personal.project.modelstest","l":"TaxCalculatorTest"}]
