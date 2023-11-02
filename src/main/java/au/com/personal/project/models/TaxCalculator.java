@@ -18,46 +18,60 @@ public class TaxCalculator {
     double overHundredEightyThousandIncome;
     double overHundredEightyThousandTax;
 
-    public String calculateTax(double income) {
+    public String calculateTax(String userInput) {
 
-        double paidTaxAlreadyFirst = 5092;
-        double paidTaxAlreadySecond = (5092 + 24375);
-        double paidTaxAlreadyThird = (5092 + 24375 + 22200);
-        double incomeTax120 = ((income-45001)*0.325);
-        double incomeTax180 = ((income-120000)*0.37);
-        double incomeTaxOver180 = ((income-180000)*0.45);
-        double medicareIvey = (income*0.02);
+        if (isStringDouble(userInput)) {
 
+            double income = Double.parseDouble(userInput);
 
-        if (income < 18200) {
-            System.out.println(income);
-        } else if (income < 45000) {
-            double firstTax = income - 18200;
-            double taxed = firstTax * 0.19;
-            double remainder = firstTax * 0.81;
-            return "Your tax is " + taxed + ". Your income is: " + (18200 + remainder);
+            double paidTaxAlreadyFirst = 5092;
+            double paidTaxAlreadySecond = (5092 + 24375);
+            double paidTaxAlreadyThird = (5092 + 24375 + 22200);
+            double incomeTax120 = ((income - 45001) * 0.325);
+            double incomeTax180 = ((income - 120000) * 0.37);
+            double incomeTaxOver180 = ((income - 180000) * 0.45);
+            double medicareIvey = (income * 0.02);
 
-        } else if (income < 120000) {
-            hundredTwentyThousandIncome = income - paidTaxAlreadyFirst - incomeTax120 - medicareIvey;
-            hundredTwentyThousandTax = income - hundredTwentyThousandIncome;
-            String taxed = String.format("%.3f",hundredTwentyThousandTax);
+            if (income < 18200) {
+                return String.valueOf(income);
+            } else if (income < 45000) {
+                double firstTax = income - 18200;
+                double taxed = firstTax * 0.19;
+                double remainder = firstTax * 0.81;
+                return "Your tax is " + taxed + ". Your income is: " + (18200 + remainder);
 
-            return "Your tax is " + taxed + ". Your income is: " + hundredTwentyThousandIncome;
+            } else if (income < 120000) {
+                hundredTwentyThousandIncome = income - paidTaxAlreadyFirst - incomeTax120 - medicareIvey;
+                hundredTwentyThousandTax = income - hundredTwentyThousandIncome;
+                String taxed = String.format("%.3f", hundredTwentyThousandTax);
 
-        } else if (income < 180000) {
-            hundredEightyThousandIncome = income - paidTaxAlreadySecond - incomeTax180 - medicareIvey;
-            hundredEightyThousandTax = income - hundredEightyThousandIncome;
-            String taxed = String.format("%.3f",hundredEightyThousandTax);
+                return "Your tax is " + taxed + ". Your income is: " + hundredTwentyThousandIncome;
 
-            return "Your tax is " + taxed + ". Your income is: " + hundredEightyThousandIncome;
+            } else if (income < 180000) {
+                hundredEightyThousandIncome = income - paidTaxAlreadySecond - incomeTax180 - medicareIvey;
+                hundredEightyThousandTax = income - hundredEightyThousandIncome;
+                String taxed = String.format("%.3f", hundredEightyThousandTax);
 
+                return "Your tax is " + taxed + ". Your income is: " + hundredEightyThousandIncome;
+
+            } else {
+                overHundredEightyThousandIncome = income - paidTaxAlreadyThird - incomeTaxOver180 - medicareIvey;
+                overHundredEightyThousandTax = income - overHundredEightyThousandIncome;
+                String taxed = String.format("%.3f", overHundredEightyThousandTax);
+
+                return "Your tax is " + taxed + ". Your income is: " + overHundredEightyThousandIncome;
+            }
         } else {
-            overHundredEightyThousandIncome = income - paidTaxAlreadyThird - incomeTaxOver180 - medicareIvey;
-            overHundredEightyThousandTax = income - overHundredEightyThousandIncome;
-            String taxed = String.format("%.3f",overHundredEightyThousandTax);
-
-            return "Your tax is " + taxed + ". Your income is: " + overHundredEightyThousandIncome;
+            return "Not a number";
         }
-        return null;
+    }
+
+    public boolean isStringDouble(String income) {
+        try {
+            Double.parseDouble(income);
+            return true;
+        } catch (NumberFormatException ex) {
+            return false;
+        }
     }
 }
